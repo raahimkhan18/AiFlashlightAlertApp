@@ -1,13 +1,35 @@
 package com.example.aiflashlight
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.SeekBar
 import android.widget.TextView
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
+import androidx.core.content.ContextCompat
 
 class IncomingCallAlertActivity : AppCompatActivity() {
+
+    private lateinit var alertSwitch: SwitchCompat
+    private lateinit var statusTxt: TextView
+
+    private val permissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestMultiplePermissions()
+    ) { permissions ->
+        val allGranted = permissions.all { it.value }
+        if (allGranted) {
+            alertSwitch.isChecked = true
+            statusTxt.text = "Status: On"
+            PrefsHelper.setBoolean(this, PrefsHelper.KEY_CALL_ENABLED, true)
+        } else {
+            Toast.makeText(this, "Permissions required for call alerts", Toast.LENGTH_LONG).show()
+            alertSwitch.isChecked = false
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -16,8 +38,8 @@ class IncomingCallAlertActivity : AppCompatActivity() {
         FlashBlinkManager.init(this)
 
         val backBtn = findViewById<ImageView>(R.id.backBtn)
-        val alertSwitch = findViewById<SwitchCompat>(R.id.alertSwitch)
-        val statusTxt = findViewById<TextView>(R.id.statusTxt)
+        alertSwitch = findViewById(R.id.alertSwitch)
+        statusTxt = findViewById(R.id.statusTxt)
 
         val seekOn = findViewById<SeekBar>(R.id.seekOn)
         val seekOff = findViewById<SeekBar>(R.id.seekOff)
@@ -42,6 +64,11 @@ class IncomingCallAlertActivity : AppCompatActivity() {
         valueOff.text = String.format("%.2fs", seekOff.progress / 100.0)
 
         alertSwitch.setOnCheckedChangeListener { _, checked ->
+            if (checked && !hasRequiredPermissions()) {
+                requestPermissions()
+                alertSwitch.isChecked = false
+                return@setOnCheckedChangeListener
+            }
             statusTxt.text = if (checked) "Status: On" else "Status: Off"
             PrefsHelper.setBoolean(this, PrefsHelper.KEY_CALL_ENABLED, checked)
         }
@@ -63,5 +90,23 @@ class IncomingCallAlertActivity : AppCompatActivity() {
             override fun onStartTrackingTouch(p0: SeekBar?) {}
             override fun onStopTrackingTouch(p0: SeekBar?) {}
         })
+    }
+
+    private fun hasRequiredPermissions(): Boolean {
+        return ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED
+    }
+
+    private fun requestPermissions() {
+        val permissionsToRequest = mutableListOf<String>()
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            permissionsToRequest.add(Manifest.permission.CAMERA)
+        }
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+            permissionsToRequest.add(Manifest.permission.READ_PHONE_STATE)
+        }
+        if (permissionsToRequest.isNotEmpty()) {
+            permissionLauncher.launch(permissionsToRequest.toTypedArray())
+        }
     }
 }

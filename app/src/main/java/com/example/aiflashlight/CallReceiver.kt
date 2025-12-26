@@ -8,38 +8,46 @@ import android.util.Log
 
 class CallReceiver : BroadcastReceiver() {
 
-    private var ringing = false
+    companion object {
+        private const val TAG = "CallReceiver"
+    }
 
     override fun onReceive(context: Context, intent: Intent) {
         try {
-            if (intent.action != "android.intent.action.PHONE_STATE") return
+            if (intent.action != TelephonyManager.ACTION_PHONE_STATE_CHANGED) return
+
             val state = intent.getStringExtra(TelephonyManager.EXTRA_STATE) ?: return
+            Log.d(TAG, "Phone state changed: $state")
 
             val enabled = PrefsHelper.getBoolean(context, PrefsHelper.KEY_CALL_ENABLED, false)
-            if (!enabled) return
+            Log.d(TAG, "Call alert enabled: $enabled")
+
+            if (!enabled) {
+                // If disabled, make sure blinking is stopped
+                if (FlashBlinkManager.isBlinking()) {
+                    FlashBlinkManager.stopBlink()
+                }
+                return
+            }
+
+            // Initialize FlashBlinkManager with application context
+            FlashBlinkManager.init(context.applicationContext)
 
             when (state) {
                 TelephonyManager.EXTRA_STATE_RINGING -> {
-                    // start blinking until call ends (infinite)
                     val onMs = PrefsHelper.getLong(context, PrefsHelper.KEY_CALL_ON_MS, 500L)
                     val offMs = PrefsHelper.getLong(context, PrefsHelper.KEY_CALL_OFF_MS, 500L)
-                    FlashBlinkManager.init(context)
+                    Log.d(TAG, "Starting blink - onMs: $onMs, offMs: $offMs")
                     FlashBlinkManager.startBlinkInfinite(onMs, offMs)
-                    ringing = true
                 }
-                TelephonyManager.EXTRA_STATE_OFFHOOK -> {
-                    // call answered — stop blinking
-                    FlashBlinkManager.stopBlink()
-                    ringing = false
-                }
+                TelephonyManager.EXTRA_STATE_OFFHOOK,
                 TelephonyManager.EXTRA_STATE_IDLE -> {
-                    // idle — stop blinking
+                    Log.d(TAG, "Stopping blink")
                     FlashBlinkManager.stopBlink()
-                    ringing = false
                 }
             }
         } catch (e: Exception) {
-            Log.e("CallReceiver", "error handling call state", e)
+            Log.e(TAG, "Error handling call state", e)
         }
     }
 }

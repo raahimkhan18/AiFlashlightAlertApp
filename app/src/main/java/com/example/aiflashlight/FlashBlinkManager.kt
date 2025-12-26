@@ -11,27 +11,32 @@ import android.util.Log
 object FlashBlinkManager {
     private const val TAG = "FlashBlinkManager"
 
-    private lateinit var cameraManager: CameraManager
+    private var cameraManager: CameraManager? = null
     private var cameraId: String? = null
     private val handler = Handler(Looper.getMainLooper())
     private var runnable: Runnable? = null
     private var isBlinking = false
+    private var isInitialized = false
 
     fun init(context: Context) {
+        if (isInitialized && cameraManager != null && cameraId != null) return
         try {
-            cameraManager = context.getSystemService(Context.CAMERA_SERVICE) as CameraManager
-            cameraId = cameraManager.cameraIdList.firstOrNull { id ->
+            val appContext = context.applicationContext
+            cameraManager = appContext.getSystemService(Context.CAMERA_SERVICE) as CameraManager
+            cameraId = cameraManager?.cameraIdList?.firstOrNull { id ->
                 try {
-                    cameraManager.getCameraCharacteristics(id)
-                        .get(CameraCharacteristics.FLASH_INFO_AVAILABLE) == true
+                    cameraManager?.getCameraCharacteristics(id)
+                        ?.get(CameraCharacteristics.FLASH_INFO_AVAILABLE) == true
                 } catch (e: Exception) {
                     false
                 }
             }
-            Log.d(TAG, "init: cameraId=$cameraId")
+            isInitialized = cameraId != null
+            Log.d(TAG, "init: cameraId=$cameraId, initialized=$isInitialized")
         } catch (e: Exception) {
             Log.e(TAG, "init error", e)
             cameraId = null
+            isInitialized = false
         }
     }
 
@@ -90,7 +95,7 @@ object FlashBlinkManager {
 
     private fun setTorch(on: Boolean) {
         try {
-            cameraId?.let { cameraManager.setTorchMode(it, on) }
+            cameraId?.let { id -> cameraManager?.setTorchMode(id, on) }
         } catch (e: CameraAccessException) {
             Log.e(TAG, "setTorch error", e)
         } catch (e: Exception) {
