@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:gravity="center"
+    android:background="@color/black">
+
+    <!-- Flash Alert -->
+    <LinearLayout
+        android:id="@+id/navFlashAlert"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_alert"
+            android:tint="@color/nav_unselected" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Flash Alert"
+            android:textColor="@color/nav_unselected"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <!-- Flashlight -->
+    <LinearLayout
+        android:id="@+id/navFlashlight"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_flashlight1"
+            android:tint="@color/nav_unselected" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Flashlight"
+            android:textColor="@color/nav_unselected"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <!-- Settings -->
+    <LinearLayout
+        android:id="@+id/navSettings"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_settings"
+            android:tint="@color/nav_unselected" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Settings"
+            android:textColor="@color/nav_unselected"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+
+    <!-- Replaced gradient with solid color -->
+    <solid android:color="@color/white"/> <!-- This is the color from your image -->
+
+    <!-- Optional: Add a subtle shadow for realism -->
+    <stroke
+        android:width="2dp"
+        android:color="#20FFFFFF" /> <!-- Light outer border -->
+
+    <size
+        android:width="220dp"
+        android:height="220dp" />
+
+</shape>

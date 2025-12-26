@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/blackmate_background"
+    android:padding="18dp">
+
+    <!-- SCROLL AREA -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottomNav"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- STATUS TEXT -->
+            <TextView
+                android:id="@+id/statusText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/status_off"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center" />
+
+            <!-- SWITCH -->
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/flashAlertSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp" />
+
+
+            <!-- CARD : INCOMING CALLS -->
+            <LinearLayout
+                android:id="@+id/cardIncoming"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:orientation="horizontal"
+                android:background="@drawable/rounded_card"
+                android:gravity="center_vertical"
+                android:paddingStart="18dp"
+                android:paddingEnd="18dp"
+                android:layout_marginTop="22dp">
+
+                <ImageView
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:src="@drawable/ic_call"
+                    android:tint="@color/teal"
+                    android:contentDescription="@null" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/incoming_calls"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:layout_marginStart="14dp" />
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_next"
+                    android:tint="@color/gray"
+                    android:contentDescription="@null" />
+            </LinearLayout>
+
+            <!-- CARD : SMS -->
+            <LinearLayout
+                android:id="@+id/cardSMS"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:orientation="horizontal"
+                android:background="@drawable/rounded_card"
+                android:gravity="center_vertical"
+                android:paddingStart="18dp"
+                android:paddingEnd="18dp"
+                android:layout_marginTop="15dp">
+
+                <ImageView
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:src="@drawable/ic_sms"
+                    android:tint="@color/teal"
+                    android:contentDescription="@null" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/sms"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:layout_marginStart="14dp" />
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_next"
+                    android:tint="@color/gray"
+                    android:contentDescription="@null" />
+            </LinearLayout>
+
+            <!-- CARD : NOTIFICATION -->
+            <LinearLayout
+                android:id="@+id/cardNotify"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:orientation="horizontal"
+                android:background="@drawable/rounded_card"
+                android:gravity="center_vertical"
+                android:paddingStart="18dp"
+                android:paddingEnd="18dp"
+                android:layout_marginTop="15dp">
+
+                <ImageView
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:src="@drawable/ic_notification"
+                    android:tint="@color/teal"
+                    android:contentDescription="@null" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/notification"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:layout_marginStart="14dp" />
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_next"
+                    android:tint="@color/gray"
+                    android:contentDescription="@null" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- BOTTOM NAVIGATION -->
+    <include
+        android:id="@+id/bottomNav"
+        layout="@layout/bottom_nav"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true" />
+
+</RelativeLayout>

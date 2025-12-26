@@ -1,0 +1,41 @@
+<resources>
+    <string name="app_name">AIFlashlight</string>
+    <string name="sos">SOS</string>
+    <string name="zero">0</string>
+    <string name="one">1</string>
+    <string name="two">2</string>
+    <string name="three">3</string>
+    <string name="four">4</string>
+    <string name="five">5</string>
+    <string name="six">6</string>
+    <string name="seven">7</string>
+    <string name="eight">8</string>
+    <string name="nine">9</string>
+
+    <string name="dir_ne">NE</string>
+    <string name="dir_degree_27">27°</string>
+
+    <string name="on_text">ON</string>
+    <string name="morse">Morse</string>
+    <string name="dimmer">Dimmer</string>
+    <string name="screen_light">Screen Light</string>
+
+
+        <!-- Flash Alert Activity -->
+        <string name="status_off">Status: Off</string>
+        <string name="status_on">Status: On</string>
+
+        <string name="incoming_calls">Incoming Calls</string>
+        <string name="sms">SMS</string>
+        <string name="notification">Notification</string>
+    <string name="flash_off_icon">\n</string>
+    <string name="flash_off">Flash Off</string>
+    <string name="flash_on">Flash On</string>
+    <string name="flash_on_icon" />
+    <string name="flashing_speed">Flashing Speed</string>
+    <string name="back" />
+    <string name="flash_alert_for">Flash Alert For</string>
+    <string name="icon" />
+
+
+</resources>

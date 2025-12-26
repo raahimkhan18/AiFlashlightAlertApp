@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/blackmate_background"
+    android:padding="20dp">
+
+    <!-- TOP BAR -->
+    <LinearLayout
+        android:id="@+id/topBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:id="@+id/backBtn"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:src="@drawable/ic_back"
+            android:padding="4dp"
+            android:contentDescription="@string/back" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginStart="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/flash_alert_for"
+                android:textColor="@color/gray"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/titleText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/incoming_calls"
+                android:textColor="@color/white"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- STATUS CARD -->
+    <LinearLayout
+        android:id="@+id/statusCard"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:layout_below="@id/topBar"
+        android:layout_marginTop="20dp"
+        android:padding="20dp"
+        android:background="@drawable/rounded_card"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_call"
+            app:tint="@color/white"
+            android:contentDescription="@string/icon" />
+
+        <TextView
+            android:id="@+id/statusTxt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="16dp"
+            android:text="@string/status_off"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/alertSwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <!-- FLASHING SPEED TITLE -->
+    <TextView
+        android:id="@+id/speedTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/statusCard"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="10dp"
+        android:text="@string/flashing_speed"
+        android:textColor="@color/white"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+    <!-- FLASH SPEED CARD -->
+    <LinearLayout
+        android:id="@+id/speedCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/speedTitle"
+        android:layout_marginTop="20dp"
+        android:padding="20dp"
+        android:background="@drawable/rounded_card"
+        android:orientation="vertical">
+
+        <!-- FLASH ON -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_flash_on"
+                app:tint="@color/white"
+                android:contentDescription="@string/flash_on_icon" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="@string/flash_on"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/valueOn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0.00s"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:layout_marginStart="16dp" />
+
+        </LinearLayout>
+
+        <SeekBar
+            android:id="@+id/seekOn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="150"
+            android:layout_marginTop="15dp" />
+
+        <!-- Divider -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginVertical="20dp"
+            android:background="@color/gray" />
+
+        <!-- FLASH OFF -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_flash_off"
+                app:tint="@color/white"
+                android:contentDescription="@string/flash_off_icon" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="@string/flash_off"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/valueOff"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0.00s"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:layout_marginStart="16dp" />
+        </LinearLayout>
+
+        <SeekBar
+            android:id="@+id/seekOff"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="150"
+            android:layout_marginTop="15dp" />
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Permissions -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <uses-feature
+        android:name="android.hardware.camera.flash"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/app_logo"
+        android:roundIcon="@drawable/app_logo"
+        android:label="AI Flashlight"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.AppCompat.NoActionBar">
+
+        <!-- MAIN -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- OTHER ACTIVITIES -->
+        <activity android:name=".FlashAlertActivity" android:exported="false" />
+        <activity android:name=".SettingsActivity" android:exported="false" />
+        <activity android:name=".SMSAlertActivity" android:exported="false" />
+        <activity android:name=".NotificationAlertActivity" android:exported="false" />
+        <activity android:name=".IncomingCallAlertActivity" android:exported="false" />
+        <activity android:name=".MorseActivity" android:exported="false" />
+        <activity android:name=".ScreenLightActivity" android:exported="false" />
+
+        <!-- DIMMER -->
+        <activity
+            android:name=".DimmerActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:exported="false"
+            android:excludeFromRecents="true"
+            android:taskAffinity=""
+            android:backgroundDimEnabled="false"
+            android:windowIsTranslucent="true" />
+
+        <!-- NOTIFICATION LISTENER -->
+        <service
+            android:name=".MyNotificationListenerService"
+            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.service.notification.NotificationListenerService" />
+            </intent-filter>
+        </service>
+
+        <!-- FOREGROUND FLASH SERVICE -->
+        <service
+            android:name=".FlashForegroundService"
+            android:exported="false"
+            android:foregroundServiceType="camera" />
+
+        <!-- SMS RECEIVER -->
+        <receiver
+            android:name=".SMSReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+            </intent-filter>
+        </receiver>
+
+        <!-- CALL RECEIVER -->
+        <receiver
+            android:name=".CallReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.PHONE_STATE" />
+            </intent-filter>
+        </receiver>
+
+    </application>
+
+</manifest>
+
